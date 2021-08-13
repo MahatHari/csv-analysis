@@ -11,10 +11,9 @@ export type MatchData = [
   MatchResults,
   string
 ];
-export abstract class CsvReader {
+export class CsvReader {
   data: MatchData[] = [];
   constructor(public fileName: string) {}
-  abstract rowData(row: string[]): MatchData;
 
   read(): void {
     this.data = fs
@@ -23,6 +22,16 @@ export abstract class CsvReader {
       })
       .split('\n')
       .map((row: string): string[] => row.split(','))
-      .map(this.rowData);
+      .map((row: string[]): MatchData => {
+        return [
+          datesToString(row[0]),
+          row[1],
+          row[2],
+          parseInt(row[3]),
+          parseInt(row[4]),
+          row[5] as MatchResults,
+          row[6],
+        ];
+      });
   }
 }
