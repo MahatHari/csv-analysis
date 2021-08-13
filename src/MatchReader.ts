@@ -1,8 +1,17 @@
-import { CsvReader, MatchData } from './CsvReader';
+import { CsvReader } from './CsvReader';
 import { MatchResults } from './matchResults';
 import { datesToString } from './utils';
 
-export class MatchReader extends CsvReader {
+export type MatchData = [
+  Date,
+  string,
+  string,
+  number,
+  number,
+  MatchResults,
+  string
+];
+export class MatchReader extends CsvReader<MatchData> {
   rowData(row: string[]): MatchData {
     return [
       datesToString(row[0]),

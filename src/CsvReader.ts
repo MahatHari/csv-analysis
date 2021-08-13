@@ -1,20 +1,9 @@
 import fs from 'fs';
-import { datesToString } from './utils';
-import { MatchResults } from './matchResults';
 
-export type MatchData = [
-  Date,
-  string,
-  string,
-  number,
-  number,
-  MatchResults,
-  string
-];
-export abstract class CsvReader {
-  data: MatchData[] = [];
+export abstract class CsvReader<T> {
+  data: T[] = [];
   constructor(public fileName: string) {}
-  abstract rowData(row: string[]): MatchData;
+  abstract rowData(row: string[]): T;
 
   read(): void {
     this.data = fs
